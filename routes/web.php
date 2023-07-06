@@ -31,7 +31,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::resource('listen', EinkaufslisteController::class)
-    ->only(['index', 'store', 'update', 'destroy'])
+    ->only(['index', 'show', 'store', 'update', 'destroy'])
     ->middleware(['auth', 'verified']);
 
 Route::middleware('auth')->group(function () {

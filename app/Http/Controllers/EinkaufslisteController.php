@@ -55,7 +55,11 @@ class EinkaufslisteController extends Controller
      */
     public function show(Einkaufsliste $listen)
     {
-        //
+        return Inertia::render('Einkaufslisten/Show', [
+
+            'liste' => $listen->load('user:id,name'),
+
+        ]);
     }
 
     /**

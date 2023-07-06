@@ -17,7 +17,7 @@ class EinkaufslisteController extends Controller
     {
         return Inertia::render('Einkaufslisten/Index', [
 
-            'listen' => Einkaufsliste::with('user:id,name')->orderBy("id", "DESC")->get(),
+            'listen' => Einkaufsliste::with('user:id,name')->latest()->get(),
 
         ]);
     }
@@ -53,7 +53,7 @@ class EinkaufslisteController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Einkaufsliste $einkaufsliste)
+    public function show(Einkaufsliste $listen)
     {
         //
     }
@@ -61,7 +61,7 @@ class EinkaufslisteController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Einkaufsliste $einkaufsliste)
+    public function edit(Einkaufsliste $listen)
     {
         //
     }
@@ -69,9 +69,9 @@ class EinkaufslisteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Einkaufsliste $einkaufsliste): RedirectResponse
+    public function update(Request $request, Einkaufsliste $listen): RedirectResponse
     {
-        $this->authorize('update', $einkaufsliste);
+        $this->authorize('update', $listen);
 
  
 
@@ -83,7 +83,7 @@ class EinkaufslisteController extends Controller
 
  
 
-        $einkaufsliste->update($validated);
+        $listen->update($validated);
 
  
 
@@ -93,8 +93,14 @@ class EinkaufslisteController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Einkaufsliste $einkaufsliste)
+    public function destroy(Einkaufsliste $listen): RedirectResponse
     {
-        //
+        $this->authorize('delete', $listen);
+
+
+        $listen->delete();
+ 
+
+        return redirect(route('listen.index'));
     }
 }

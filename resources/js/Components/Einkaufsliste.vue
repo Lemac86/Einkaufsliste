@@ -1,5 +1,6 @@
 <script setup>
 import Dropdown from '@/Components/Dropdown.vue';
+import DropdownLink from '@/Components/DropdownLink.vue';
 import InputError from '@/Components/InputError.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import dayjs from 'dayjs';
@@ -52,6 +53,11 @@ const editing = ref(false);
         Bearbeiten
 
     </button>
+    <DropdownLink as="button" :href="route('listen.destroy', liste.id)" method="delete">
+
+Löschen
+
+</DropdownLink>
 
 </template>
 

@@ -43,10 +43,10 @@ class EinkaufslistePolicy
     /**
      * Determine whether the user can delete the model.
      */
-    // public function delete(User $user, Einkaufsliste $einkaufsliste): bool
-    // {
-    //     //
-    // }
+    public function delete(User $user, Einkaufsliste $einkaufsliste): bool
+    {
+        return $this->update($user, $einkaufsliste);
+    }
 
     /**
      * Determine whether the user can restore the model.

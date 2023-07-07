@@ -10,9 +10,9 @@ import { ref } from 'vue';
 
 dayjs.extend(relativeTime);
 
-const props = defineProps(['liste']);
+const props = defineProps(['artikel']);
 const form = useForm({
-    name: props.liste.name,
+    name: props.artikel.name,
 });
 
 const editing = ref(false);
@@ -23,12 +23,12 @@ const editing = ref(false);
         <div class="flex-1">
             <div class="flex justify-between items-center">
                 <div>
-                    <span class="text-gray-800">{{ liste.user.name }}</span>
-                    <small class="ml-2 text-sm text-gray-600">{{ dayjs(liste.created_at).fromNow() }}</small>
-                    <small v-if="liste.created_at !== liste.updated_at" class="text-sm text-gray-600"> &middot;
+                    <span class="text-gray-800">{{ artikel.user.name }}</span>
+                    <small class="ml-2 text-sm text-gray-600">{{ dayjs(artikel.created_at).fromNow() }}</small>
+                    <small v-if="artikel.created_at !== artikel.updated_at" class="text-sm text-gray-600"> &middot;
                         bearbeitet</small>
                 </div>
-                <Dropdown v-if="liste.user.id === $page.props.auth.user.id">
+                <Dropdown v-if="artikel.user.id === $page.props.auth.user.id">
 
                     <template #trigger>
 
@@ -55,18 +55,18 @@ const editing = ref(false);
                             Bearbeiten
 
                         </button>
-                        <DropdownLink as="button" :href="route('liste.destroy', liste.id)" method="delete">
+                        <!-- <DropdownLink as="button" :href="route('liste.artikel.destroy', artikel.id)" method="delete">
 
                             Löschen
 
-                        </DropdownLink>
+                        </DropdownLink> -->
 
                     </template>
 
                 </Dropdown>
             </div>
             <form v-if="editing"
-                @submit.prevent="form.put(route('liste.update', liste.id), { onSuccess: () => editing = false })">
+                @submit.prevent="form.put(route('liste.artikel.update', artikel.id), { onSuccess: () => editing = false })">
 
                 <textarea v-model="form.name"
                     class="mt-4 w-full text-gray-900 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"></textarea>
@@ -84,10 +84,9 @@ const editing = ref(false);
             </form>
 
 
-            <PrimaryButton v-else class="mt-4 text-lg text-gray-900"><a :href="route('liste.show', liste.id)">{{
-                liste.name
-            }}</a>
-            </PrimaryButton>
+            <div v-else class="mt-4 text-lg text-gray-900">{{
+                artikel.name }}
+            </div>
 
         </div>
     </div>

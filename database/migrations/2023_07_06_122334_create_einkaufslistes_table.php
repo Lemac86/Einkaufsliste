@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('einkaufslistes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->string('message');
+            $table->string('name');
             $table->timestamps();
         });
     }

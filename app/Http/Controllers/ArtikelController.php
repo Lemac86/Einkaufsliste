@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Artikel;
+use App\Models\Einkaufsliste;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class ArtikelController extends Controller
 {
@@ -26,9 +30,24 @@ class ArtikelController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Einkaufsliste $liste): RedirectResponse
     {
-        //
+        $validated = $request->validate([
+
+            'name' => 'required|string|max:255',
+
+        ]);
+
+ 
+
+        $liste->artikel()->create([
+            "name" => $validated["name"],
+            "user_id" => $request->user()->id
+        ]);
+
+ 
+
+        return redirect(route('liste.show', $liste->id));
     }
 
     /**
@@ -60,6 +79,12 @@ class ArtikelController extends Controller
      */
     public function destroy(Artikel $artikel)
     {
-        //
+        $this->authorize('delete', $artikel);
+
+
+        $artikel->delete();
+ 
+
+        return redirect(route('liste.index'));
     }
 }

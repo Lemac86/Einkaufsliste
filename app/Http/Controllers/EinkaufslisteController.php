@@ -37,7 +37,7 @@ class EinkaufslisteController extends Controller
     {
         $validated = $request->validate([
 
-            'message' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
 
         ]);
 
@@ -47,17 +47,17 @@ class EinkaufslisteController extends Controller
 
  
 
-        return redirect(route('listen.index'));
+        return redirect(route('liste.index'));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Einkaufsliste $listen)
+    public function show(Einkaufsliste $liste)
     {
         return Inertia::render('Einkaufslisten/Show', [
 
-            'liste' => $listen->load('user:id,name'),
+            'liste' => $liste->load('user:id,name', 'artikel', 'artikel.user:id,name'),
 
         ]);
     }
@@ -65,7 +65,7 @@ class EinkaufslisteController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Einkaufsliste $listen)
+    public function edit(Einkaufsliste $liste)
     {
         //
     }
@@ -73,38 +73,38 @@ class EinkaufslisteController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Einkaufsliste $listen): RedirectResponse
+    public function update(Request $request, Einkaufsliste $liste): RedirectResponse
     {
-        $this->authorize('update', $listen);
+        $this->authorize('update', $liste);
 
  
 
         $validated = $request->validate([
 
-            'message' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
 
         ]);
 
  
 
-        $listen->update($validated);
+        $liste->update($validated);
 
  
 
-        return redirect(route('listen.index'));
+        return redirect(route('liste.index'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Einkaufsliste $listen): RedirectResponse
+    public function destroy(Einkaufsliste $liste): RedirectResponse
     {
-        $this->authorize('delete', $listen);
+        $this->authorize('delete', $liste);
 
 
-        $listen->delete();
+        $liste->delete();
  
 
-        return redirect(route('listen.index'));
+        return redirect(route('liste.index'));
     }
 }

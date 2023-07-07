@@ -28,7 +28,7 @@ const editing = ref(false);
                     <small v-if="liste.created_at !== liste.updated_at" class="text-sm text-gray-600"> &middot;
                         bearbeitet</small>
                 </div>
-                <Dropdown v-if="liste.user.id === $page.props.auth.user.id">
+                <Dropdown>
 
                     <template #trigger>
 

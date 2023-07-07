@@ -69,22 +69,28 @@ class ArtikelController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Artikel $artikel)
+    public function update(Request $request, Einkaufsliste $liste, Artikel $artikel): RedirectResponse
     {
-        //
+        $validated = $request->validate([
+
+            'name' => 'required|string|max:255',
+
+        ]);
+
+        $artikel->update($validated);
+
+        return redirect(route('liste.show', $liste->id));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Artikel $artikel)
+    public function destroy(Einkaufsliste $liste, Artikel $artikel)
     {
-        $this->authorize('delete', $artikel);
-
 
         $artikel->delete();
  
 
-        return redirect(route('liste.index'));
+        return redirect(route('liste.show', $liste->id));
     }
 }

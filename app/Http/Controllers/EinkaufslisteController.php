@@ -75,10 +75,7 @@ class EinkaufslisteController extends Controller
      */
     public function update(Request $request, Einkaufsliste $liste): RedirectResponse
     {
-        $this->authorize('update', $liste);
-
  
-
         $validated = $request->validate([
 
             'name' => 'required|string|max:255',
@@ -99,8 +96,6 @@ class EinkaufslisteController extends Controller
      */
     public function destroy(Einkaufsliste $liste): RedirectResponse
     {
-        $this->authorize('delete', $liste);
-
 
         $liste->delete();
  

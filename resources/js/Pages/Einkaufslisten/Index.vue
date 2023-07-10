@@ -18,7 +18,7 @@ const form = useForm({
     <AuthenticatedLayout>
         <div class="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
             <form @submit.prevent="form.post(route('liste.store'), { onSuccess: () => form.reset() })">
-                <textarea v-model="form.name" placeholder="Möchtest du eine neue Liste erstellen?"
+                <textarea v-model="form.name" placeholder="Wie soll die neue Einkaufsliste heißen?"
                     class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"></textarea>
                 <InputError :message="form.errors.name" class="mt-2" />
                 <PrimaryButton class="mt-4">Neue Einkaufsliste erstellen</PrimaryButton>

@@ -3,6 +3,7 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import InputError from '@/Components/InputError.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
+import ListButton from '@/Components/ListButton.vue';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { useForm } from '@inertiajs/vue3';
@@ -17,17 +18,34 @@ const form = useForm({
 
 const editing = ref(false);
 </script>
- 
+
 <template>
-    <div class="p-6 flex space-x-2">
+    <div class="p-4 flex space-x-2">
         <div class="flex-1">
-            <div class="flex justify-between items-center">
-                <div>
-                    <span class="text-gray-800">{{ liste.user.name }}</span>
-                    <small class="ml-2 text-sm text-gray-600">{{ dayjs(liste.created_at).fromNow() }}</small>
-                    <small v-if="liste.created_at !== liste.updated_at" class="text-sm text-gray-600"> &middot;
-                        bearbeitet</small>
-                </div>
+
+            <div class="flex justify-between items-center mb-2">
+                <form v-if="editing"
+                    @submit.prevent="form.put(route('liste.update', liste.id), { onSuccess: () => editing = false })">
+
+                    <textarea v-model="form.name"
+                        class="mt-4 w-full text-gray-900 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"></textarea>
+
+                    <InputError :message="form.errors.name" class="mt-2" />
+
+                    <div class="space-x-2">
+
+                        <PrimaryButton class="mt-1">Speichern</PrimaryButton>
+
+                        <button class="mt-4" @click="editing = false; form.reset(); form.clearErrors()">Abbrechen</button>
+
+                    </div>
+
+                </form>
+
+                <ListButton v-else class="mt-2 text-lg text-gray-900"><a :href="route('liste.show', liste.id)">{{
+                    liste.name
+                }}</a>
+                </ListButton>
                 <Dropdown>
 
                     <template #trigger>
@@ -65,30 +83,12 @@ const editing = ref(false);
 
                 </Dropdown>
             </div>
-            <form v-if="editing"
-                @submit.prevent="form.put(route('liste.update', liste.id), { onSuccess: () => editing = false })">
-
-                <textarea v-model="form.name"
-                    class="mt-4 w-full text-gray-900 border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"></textarea>
-
-                <InputError :message="form.errors.name" class="mt-2" />
-
-                <div class="space-x-2">
-
-                    <PrimaryButton class="mt-4">Speichern</PrimaryButton>
-
-                    <button class="mt-4" @click="editing = false; form.reset(); form.clearErrors()">Abbrechen</button>
-
-                </div>
-
-            </form>
-
-
-            <PrimaryButton v-else class="mt-4 text-lg text-gray-900"><a :href="route('liste.show', liste.id)">{{
-                liste.name
-            }}</a>
-            </PrimaryButton>
-
+            <div class="text-end">
+                <span class="ml-1 text-gray-800">{{ liste.user.name }}</span>
+                <small class="ml-2 text-sm text-gray-600">{{ dayjs(liste.created_at).fromNow() }}</small>
+                <small v-if="liste.created_at !== liste.updated_at" class="text-sm text-gray-600"> &middot;
+                    bearbeitet</small>
+            </div>
         </div>
     </div>
 </template>

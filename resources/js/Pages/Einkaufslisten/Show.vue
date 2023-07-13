@@ -11,7 +11,6 @@ const props = defineProps(['liste']);
 const form = useForm({
     name: '',
 });
-console.log(props.liste)
 </script>
  
 <template>

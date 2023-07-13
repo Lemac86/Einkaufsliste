@@ -20,9 +20,9 @@ const editing = ref(false);
 </script>
  
 <template>
-    <div class="p-3 flex space-x-1">
+    <div class="p-1 flex space-x-1">
         <div class="flex-1">
-            <div class="flex justify-between items-center mb-2">
+            <div class="flex justify-between items-center">
                 <form v-if="editing"
                     @submit.prevent="form.put(route('liste.artikel.update', [liste.id, artikel.id]), { onSuccess: () => editing = false })">
 
@@ -41,7 +41,7 @@ const editing = ref(false);
                 </form>
 
 
-                <ArticleButton v-else class="text-lg text-gray-900">{{ artikel.name }}
+                <ArticleButton v-else class="text-sm text-gray-900">{{ artikel.name }}
                 </ArticleButton>
                 <Dropdown>
 

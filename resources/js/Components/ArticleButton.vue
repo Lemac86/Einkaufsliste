@@ -1,7 +1,9 @@
 <template>
     <div class="flex">
-        <HakenIcon v-if="checked" class="block h-7 w-auto fill-current text-gray-800"></HakenIcon>
-        <button @click="checked = !checked; notAvailable = false" v-touch:swipe="() => (notAvailable = !notAvailable)"
+        <HakenIcon v-if="checked" class="block h-7 w-auto fill-current"></HakenIcon>
+        <button
+            @click="checked = !checked; notAvailable = false; form.put(route('liste.artikel.update', [liste.id, artikel.id]))"
+            v-touch:swipe="() => (notAvailable = !notAvailable)"
             class="inline-flex items-center px-4 py-1 border border-transparent rounded-md font-semibold text-sm text-white tracking-widest transition ease-in-out duration-50 me-2"
             :class="ButtonColor">
             <slot />
@@ -11,7 +13,11 @@
 <script setup>
 import { ref, computed } from "vue";
 import HakenIcon from '@/Components/HakenIcon.vue';
-import { onMounted } from "vue";
+import { useForm } from '@inertiajs/vue3';
+
+const form = useForm({
+    name: props.artikel.name,
+});
 
 const checked = ref(false)
 const notAvailable = ref(false)

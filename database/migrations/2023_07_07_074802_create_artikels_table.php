@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('einkaufsliste_id')->constrained()->cascadeOnDelete();
             $table->string('name');
+            $table->boolean('isChecked');
+            $table->boolean('isNotAvailable');
             $table->timestamps();
         });
     }

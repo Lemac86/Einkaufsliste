@@ -74,6 +74,8 @@ class ArtikelController extends Controller
         $validated = $request->validate([
 
             'name' => 'required|string|max:255',
+            'isChecked' => 'boolean',
+            'isNotAvailable' => 'boolean'
 
         ]);
 

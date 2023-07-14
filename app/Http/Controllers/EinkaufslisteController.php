@@ -37,7 +37,7 @@ class EinkaufslisteController extends Controller
     {
         $validated = $request->validate([
 
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:einkaufslistes,name',
 
         ]);
 
@@ -78,7 +78,7 @@ class EinkaufslisteController extends Controller
  
         $validated = $request->validate([
 
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:einkaufslistes,name',
 
         ]);
 

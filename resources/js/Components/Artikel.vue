@@ -49,13 +49,13 @@ const editing = ref(false);
 
                         <button>
 
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" viewBox="0 0 20 20"
-                                fill="currentColor">
-
-                                <path
-                                    d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
-
-                            </svg>
+                            <div class="text-end">
+                                <span class="text-gray-800">{{ artikel.user.name }}</span>
+                                <small class="ml-2 text-sm text-gray-600">{{ dayjs(artikel.created_at).fromNow() }}</small>
+                                <small v-if="artikel.created_at !== artikel.updated_at" class="text-sm text-gray-600">
+                                    &middot;
+                                    bearbeitet</small>
+                            </div>
 
                         </button>
 
@@ -79,12 +79,7 @@ const editing = ref(false);
 
                 </Dropdown>
             </div>
-            <div class="text-end">
-                <span class="text-gray-800">{{ artikel.user.name }}</span>
-                <small class="ml-2 text-sm text-gray-600">{{ dayjs(artikel.created_at).fromNow() }}</small>
-                <small v-if="artikel.created_at !== artikel.updated_at" class="text-sm text-gray-600"> &middot;
-                    bearbeitet</small>
-            </div>
+
 
 
 

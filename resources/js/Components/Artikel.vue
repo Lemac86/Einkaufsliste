@@ -41,7 +41,7 @@ const editing = ref(false);
                 </form>
 
 
-                <ArticleButton v-else class="text-sm text-gray-900">{{ artikel.name }}
+                <ArticleButton :artikel="artikel" :liste="liste" v-else class="text-sm text-gray-900">{{ artikel.name }}
                 </ArticleButton>
                 <Dropdown>
 

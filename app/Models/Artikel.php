@@ -27,8 +27,8 @@ class Artikel extends Model
 
         'name',
         'user_id',
-        'isChecked',
-        'isNotAvailable'
+        'checked',
+        'notAvailable'
 
     ];
     
